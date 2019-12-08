@@ -2,6 +2,7 @@
 using namespace std;
 
 #define size 10
+
 void print_board(char board[][size]);
 void init_board(char board[][size]);
 void recursive(char board[][size], int x, int y);
@@ -13,16 +14,16 @@ static int max_queen = 0;
 static int temp_max = 0;
 
 int main() {
-	// char 'o' ÀÌ¸é ³õÀ»¼öÀÖ°í, 'x'ÀÌ¸é ¸ø³õ°í, qÀÌ¸é Äı ÀÖ´Â°÷
+	// char 'o' ì´ë©´ ë†“ì„ìˆ˜ìˆê³ , 'x'ì´ë©´ ëª»ë†“ê³ , qì´ë©´ í€¸ ìˆëŠ”ê³³
 	char board[size][size];
 	init_board(board);
 
-	// ÃÊ±â°ª ¼³Á¤ ºÎºĞ
+	// ì´ˆê¸°ê°’ ì„¤ì • ë¶€ë¶„
 	check(board, 5, 5);
-	// check(board, 2, 3); ¿©·¯°³ ³õÀ» ¼öµµ ÀÕÀ½
+	// check(board, 2, 3); ì—¬ëŸ¬ê°œ ë†“ì„ ìˆ˜ë„ ì‡ìŒ
 
 
-	// ¸ğµç ºÎºĞ¿¡¼­ recursive ½ÃÀÛÇØº¸±â
+	// ëª¨ë“  ë¶€ë¶„ì—ì„œ recursive ì‹œì‘í•´ë³´ê¸°
 	print_board(board);
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++) {
@@ -33,24 +34,24 @@ int main() {
 }
 
 void recursive(char board[][size], int x, int y) {
-	// µÑ ¼ö ¾øÀ¸¸é return
+	// ë‘˜ ìˆ˜ ì—†ìœ¼ë©´ return
 	if (board[x][y] != 'o')
 		return;
 	
-	// ¾È µÇ´Â °÷ Áö¿ì±â
+	// ì•ˆ ë˜ëŠ” ê³³ ì§€ìš°ê¸°
 	check(board, x, y);
 	print_board(board);
 
-	// µÇ´Â °÷ Ã£±â
+	// ë˜ëŠ” ê³³ ì°¾ê¸°
 	for (int i = x; i < size; i++)
 		for (int j = 0; j < size; j++)
 			if (board[i][j] == 'o') {
-				// board Àç»ç¿ë ÇØ¾ßÇÏ´Ï±î º¹»ç ÈÄ ÇÔ¼ö·Î º¸³»±â
+				// board ì¬ì‚¬ìš© í•´ì•¼í•˜ë‹ˆê¹Œ ë³µì‚¬ í›„ í•¨ìˆ˜ë¡œ ë³´ë‚´ê¸°
 				char temp_board[size][size];
 				coping(board, temp_board);
 				recursive(temp_board, i, j);
 			}
-	// ÇÔ¼ö ÇÑ¹ø ³¡³­´Ù´Â °Ç Àü»óÅÂ·Î µ¹¾Æ°¨ ÀÇ¹ÌÇÏ¹Ç·Î queen °³¼ö ÁÙÀÌ±â
+	// í•¨ìˆ˜ í•œë²ˆ ëë‚œë‹¤ëŠ” ê±´ ì „ìƒíƒœë¡œ ëŒì•„ê° ì˜ë¯¸í•˜ë¯€ë¡œ queen ê°œìˆ˜ ì¤„ì´ê¸°
 	temp_max -= 1;
 }
 
@@ -60,10 +61,10 @@ void check(char board[][size], int x, int y) {
 		board[x][y] = 'q';
 	else
 		return;
-	// Äı ÇÑ°³ ³õ¾Ò´Ù´Â ÀÇ¹ÌÀÌ¹Ç·Î +1
+	// í€¸ í•œê°œ ë†“ì•˜ë‹¤ëŠ” ì˜ë¯¸ì´ë¯€ë¡œ +1
 	temp_max += 1;
 
-	// ³ª¸ÓÁö º¸µå º¯°æ
+	// ë‚˜ë¨¸ì§€ ë³´ë“œ ë³€ê²½
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
 			if (board[i][j] == 'o')
@@ -71,7 +72,7 @@ void check(char board[][size], int x, int y) {
 					board[i][j] = 'x';
 }
 
-// Äı ÃÖ´ë °³¼ö ´Ã¾î³¯ ¶§³ª ¶È°°À» ¶§¸¸ Ãâ·Â
+// í€¸ ìµœëŒ€ ê°œìˆ˜ ëŠ˜ì–´ë‚  ë•Œë‚˜ ë˜‘ê°™ì„ ë•Œë§Œ ì¶œë ¥
 void print_board(char board[][size]) {
 	if (temp_max >= max_queen) {
 		for (int i = 0; i < size; i++) {
@@ -85,7 +86,7 @@ void print_board(char board[][size]) {
 	return;
 }
 
-// ÀüºÎ ´Ù 'o'
+// ì „ë¶€ ë‹¤ 'o'
 void init_board(char board[][size]) {
 	temp_max = 0;
 	for (int i = 0; i < size; i++)
